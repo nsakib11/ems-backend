@@ -3,18 +3,20 @@ package ns11.employees_managementbackend.controller;
 import lombok.AllArgsConstructor;
 import ns11.employees_managementbackend.dto.EmployeeDto;
 import ns11.employees_managementbackend.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
-//import java.util.List;
-//@CrossOrigin("*")
+
+@CrossOrigin("*")
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/employees")
 public class EmployeeController {
+
+    @Autowired
     private EmployeeService employeeService;
 
     // Build Add Employee REST API
@@ -29,6 +31,11 @@ public class EmployeeController {
         EmployeeDto employeeDto = employeeService.getEmployeeById(employeeId);
         return ResponseEntity.ok(employeeDto);
     }
+    @GetMapping("/search/{firstName}")
+    public ResponseEntity<List<EmployeeDto>> findEmployeesByFirstName(@PathVariable("firstName") String firstName) {
+        List<EmployeeDto> employees = employeeService.findEmployeesByFirstName(firstName);
+        return ResponseEntity.ok(employees);
+    }
 
     //Build Get All Employee REST API
     @GetMapping
@@ -36,6 +43,7 @@ public class EmployeeController {
         List<EmployeeDto> employees = employeeService.getAllEmployees();
         return ResponseEntity.ok(employees);
     }
+
 
     // Build Update Employee REST API
     @PutMapping("{id}")
@@ -45,10 +53,13 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeDto);
     }
 
+
     // Build Delete Employee REST API
-    @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteEmployee(@PathVariable("id") Long employeeId){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteEmployee(@PathVariable("id") Long employeeId) {
         employeeService.deleteEmployee(employeeId);
         return ResponseEntity.ok("Employee deleted successfully!.");
     }
+
+
 }

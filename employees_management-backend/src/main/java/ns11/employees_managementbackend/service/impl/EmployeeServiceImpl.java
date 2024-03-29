@@ -8,7 +8,6 @@ import ns11.employees_managementbackend.mapper.EmployeeMapper;
 import ns11.employees_managementbackend.repository.EmployeeRepository;
 import ns11.employees_managementbackend.service.EmployeeService;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +29,13 @@ public class EmployeeServiceImpl implements EmployeeService {
                         new ResourceNotFoundException("Employee is not exists with given id : " + employeeId));
         return EmployeeMapper.mapToEmployeeDto(employee);
     }
+
+    @Override
+    public List<EmployeeDto> findEmployeesByFirstName(String firstName) {
+        List<Employee> employees = employeeRepository.findByFirstName(firstName);
+        return employees.stream().map(EmployeeMapper::mapToEmployeeDto).collect(Collectors.toList());
+    }
+
 
     @Override
     public List<EmployeeDto> getAllEmployees() {
@@ -66,6 +72,5 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         employeeRepository.deleteById(employeeId);
     }
-
 
 }
