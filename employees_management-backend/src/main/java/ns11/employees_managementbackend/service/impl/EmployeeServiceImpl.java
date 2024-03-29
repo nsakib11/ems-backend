@@ -31,13 +31,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<EmployeeDto> findEmployeesByFirstName(String firstName) {
-        List<Employee> employees = employeeRepository.findByFirstName(firstName);
-        return employees.stream().map(EmployeeMapper::mapToEmployeeDto).collect(Collectors.toList());
-    }
-
-
-    @Override
     public List<EmployeeDto> getAllEmployees() {
         List<Employee> employees = employeeRepository.findAll();
         return employees.stream().map((EmployeeMapper::mapToEmployeeDto))

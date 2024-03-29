@@ -31,11 +31,6 @@ public class EmployeeController {
         EmployeeDto employeeDto = employeeService.getEmployeeById(employeeId);
         return ResponseEntity.ok(employeeDto);
     }
-    @GetMapping("/search/{firstName}")
-    public ResponseEntity<List<EmployeeDto>> findEmployeesByFirstName(@PathVariable("firstName") String firstName) {
-        List<EmployeeDto> employees = employeeService.findEmployeesByFirstName(firstName);
-        return ResponseEntity.ok(employees);
-    }
 
     //Build Get All Employee REST API
     @GetMapping

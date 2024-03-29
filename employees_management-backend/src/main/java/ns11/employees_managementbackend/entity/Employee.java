@@ -31,7 +31,7 @@ public class Employee {
     @Temporal(TemporalType.DATE) // Use TemporalType.DATE for storing date only without time
     private Date dateOfBirth;
 
-    @Column(name = "mobile")
+    @Column(name = "mobile", unique = true)
     private String mobile;
 
     @Column(name = "city")
